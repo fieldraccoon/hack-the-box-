@@ -4,7 +4,7 @@
 - enumeration  
 - git command use
 - XXE file read
-
+# USER
 After carrying out our nmap scan we procede to the web browser to open up the http service and run a dirbuster scan on it
 we can see that it comes back with two results.
 ```
@@ -43,5 +43,16 @@ PROCESSED BLOGPOST:
 </test>
 ```
 This reads the /etc/passwd file and confirms that the user roosa is the correct person we are after for this box.
-We now try to grab the ssh key for the user by changing `file:///etc/passwd` to 
+We now try to grab the ssh key for the user by changing `file:///etc/passwd` to `file:///home/roosa/.ssh/id_rsa` This works perfectly and we read the ssh key. we copy this file to our box and ssh as roosa and read the user flag.
+
+# ROOT
+as we ssh we find that there is a git directory in /home/roosa/work/blogfeed/.git
+we run `git log` to see if we find anything interesting and luckily we do.
+```xml
+commit 33e87c312c08735a02fa9c796021a4a3023129ad
+Author: Roosa Hakkerson <roosa@solita.fi>
+Date:   Mon Mar 19 09:33:06 2018 -0400
+
+    reverted accidental commit with proper key
+```
 
