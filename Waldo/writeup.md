@@ -2,7 +2,7 @@
 
 In the source code of the http website there is this javascript code:
 
-```python
+```javascript
 function readFile(file){ 
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST","fileRead.php",false);
