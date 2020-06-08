@@ -1,8 +1,10 @@
 # waldo
 
-In the source code of the http website there is this java code:
+In the source code of the http website there is this javascript code:
 
-````function readFile(file){ 
+````
+javascript
+function readFile(file){ 
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST","fileRead.php",false);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
