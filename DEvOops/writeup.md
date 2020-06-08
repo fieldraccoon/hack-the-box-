@@ -61,5 +61,5 @@ We copy it to our box once again, give it appropriate permissions and ssh as roo
 
 Please drop me some respecet if you found my writeup worth the read :)
 
-<script src="https://www.hackthebox.eu/badge/246314"></script>
+https://www.hackthebox.eu/home/users/profile/246314
 
