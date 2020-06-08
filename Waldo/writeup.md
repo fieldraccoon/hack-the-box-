@@ -2,8 +2,7 @@
 
 In the source code of the http website there is this javascript code:
 
-````
-javascript
+```python
 function readFile(file){ 
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST","fileRead.php",false);
@@ -14,7 +13,7 @@ function readFile(file){
   }else{
   }
 }
-````
+```
 we can use this to read other php files on the server
 
 we intercept the request with burpe and we find out that we can provide an output to `/dirRead.php` to get files.
