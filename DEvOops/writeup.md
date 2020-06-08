@@ -55,4 +55,11 @@ Date:   Mon Mar 19 09:33:06 2018 -0400
 
     reverted accidental commit with proper key
 ```
+This means that the user had an old ssh key reverted(its the root ssh key) so we need to try and find a way to get this.
+We run `git show 33e87c312c08735a02fa9c796021a4a3023129ad` and it shows us the root key,
+We copy it to our box once again, give it appropriate permissions and ssh as root.
+
+Please drop me some respecet if you found my writeup worth the read :)
+
+<script src="https://www.hackthebox.eu/badge/246314"></script>
 
