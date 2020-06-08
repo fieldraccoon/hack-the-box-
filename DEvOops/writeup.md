@@ -42,5 +42,6 @@ PROCESSED BLOGPOST:
   <Content>fieldraccoon</Content>
 </test>
 ```
-
+This reads the /etc/passwd file and confirms that the user roosa is the correct person we are after for this box.
+We now try to grab the ssh key for the user by changing `file:///etc/passwd` to 
 
