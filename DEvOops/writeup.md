@@ -9,5 +9,15 @@ After carrying out our nmap scan we procede to the web browser to open up the ht
 we can see that it comes back with two results.
 ```
 /feed
-/upload```
+/upload
+```
+Navigating to feed shows a static page and therefore nothing interesting however on the upload page there is a upload section where it allows us to upload xml files. We can now start creating a payload to get us code execution. We loads up burpSuite and intercept the request. The website mentions that we must have Author, Subject and Content tags in our xml so of course we add these.
+```xml
+<test>
+  <Author>fieldraccoon</Author>
+  <Subject>fieldraccoon</Subject>
+  <Content>fieldraccoon</Content>
+</test>
+```
+this is the data we add to our initial payload and we get a request back form the server. 
 
