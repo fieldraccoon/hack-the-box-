@@ -2,7 +2,7 @@
 
 In the source code of the http website there is this java code:
 
-```function readFile(file){ 
+````function readFile(file){ 
   var xhttp = new XMLHttpRequest();
   xhttp.open("POST","fileRead.php",false);
   xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -12,7 +12,7 @@ In the source code of the http website there is this java code:
   }else{
   }
 }
-```
+````
 we can use this to read other php files on the server
 
 we intercept the request with burpe and we find out that we can provide an output to `/dirRead.php` to get files.
@@ -31,6 +31,7 @@ the path is screwed so we have to do:
 ```export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH```
 now we can go and have a look around
 we eventually figure out that we can use the tac binary to read files
-tac /root/root.txt
+
+`tac /root/root.txt`
 
 
