@@ -24,7 +24,8 @@ After this we can simply run:
 sudo -i 
 ```
 To become root however the root.txt reads this:
-```I lost my origonal root.txt! I think i may have a backup on my USB stick
+```
+I lost my origonal root.txt! I think i may have a backup on my USB stick
 ```
 We navigate to ```/media/usbstick``` and read a file called Damnit.txt
 ```
