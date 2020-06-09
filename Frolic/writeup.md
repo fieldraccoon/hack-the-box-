@@ -117,7 +117,7 @@ Now we need to get all the addresses so we will start with finding the /bin/sh i
 ```
 www-data@frolic:/home/ayush/.binary$ ldd rop 
         linux-gate.so.1 =>  (0xb7fda000)
-        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7e19000)    <-- this!
+        libc.so.6 => /lib/i386-linux-gnu/libc.so.6 (0xb7e19000)    
         /lib/ld-linux.so.2 (0xb7fdb000)
         
 www-data@frolic:/home/ayush/.binary$ strings -a -t x /lib/i386-linux-gnu/libc.so.6 | grep /bin/sh
