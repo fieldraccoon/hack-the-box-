@@ -261,7 +261,7 @@ C:\Users\Administrator\Desktop>dir
 C:\Users\Administrator\Desktop>type root.txt
 6594c2eb084bc0f08a42f0b94b878c41
 ```
-Thanks for reading hope you enjoyed.
+Thanks for reading hope you enjoyed the writeup.
 
 
 
