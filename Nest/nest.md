@@ -230,7 +230,7 @@ We then decompile the binary and add our password to the file with a ldap.conf a
 We can now login to the box as Administrator with that password and grap our root flag.
 
 We use psexec.py from impacket and get a shell as Administrator.
-```javascript
+```bash
 ython3 psexec.py Administrator:XtH4nkS4Pl4y1nGX@10.10.10.178
 Impacket v0.9.20-dev - Copyright 2020 SecureAuth Corporation
 
