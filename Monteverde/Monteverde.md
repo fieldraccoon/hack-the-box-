@@ -11,6 +11,7 @@ Monteverde was a medium windows box that involved many common windows exploitati
 # USER
 
 >Nmap
+
 First we start off with an nmap scan and it reveals many ports open but the ones we are interested in are port 139/445 allowing access to smb.
 ```bash
 PORT     STATE SERVICE       VERSION
