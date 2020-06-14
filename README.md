@@ -24,7 +24,7 @@ nest - easy windows - https://github.com/fieldraccoon/hack-the-box-/tree/master/
 
 netmon - easy windows - https://github.com/fieldraccoon/hack-the-box-/blob/master/Netmon/netmon.md
 
-OpenAdmin - eassy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/OpenAdmin
+OpenAdmin - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/OpenAdmin
 
 Postman - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/Postman
 
