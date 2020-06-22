@@ -169,6 +169,8 @@ user.txt
 takis@tenten:~$ cat user.txt
 e5c7ed3b89e73049c04c432fc8686f31
 ```
+# ROOT
+
 We run `sudo -l` to check if we have any privs for running things as sudo and it turns out that we do.
 ```shell
 takis@tenten:~$ sudo -l
