@@ -1,37 +1,5 @@
 # hack-the-box
-Hack the box writeups for retired machines(current active machine writeups will be released when theu retire)
+Hack the box writeups for retired machines(current active machine writeups will be released when theu retire) more on my website https://fieldraccoon.github.io
 
 https://www.hackthebox.eu/home/users/profile/246314
 My hack the box profile feel free to go drop some +rep
-
-Just some writeups ive done:
-
-Ariekei - insane linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/Ariekei
-
-Blocky - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/Blocky
-
-Blue - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/Blue
-
-DevOops - medium linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/DEvOops
-
-Frolic - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/Frolic
-
-Mirai - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/Mirai
-
-Monteverde - medium windows - https://github.com/fieldraccoon/hack-the-box-/tree/master/Monteverde
-
-nest - easy windows - https://github.com/fieldraccoon/hack-the-box-/tree/master/Nest
-
-netmon - easy windows - https://github.com/fieldraccoon/hack-the-box-/blob/master/Netmon/netmon.md
-
-OpenAdmin - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/OpenAdmin
-
-Postman - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/Postman
-
-Waldo - medium linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/Waldo
-
-jerry - easy windows - https://github.com/fieldraccoon/hack-the-box-/tree/master/jerry
-
-Lame - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/lame
-
-legacy - easy linux - https://github.com/fieldraccoon/hack-the-box-/tree/master/legacy
